@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+
+    implementation 'org.seleniumhq.selenium:selenium-java:4.12.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.2.3'
+
+    // Cucumber
+    implementation 'io.cucumber:cucumber-java:7.6.0'
+    implementation 'io.cucumber:cucumber-junit:7.8.0'
+
+    // Reporting
+    implementation 'io.qameta.allure:allure-cucumber7-jvm:2.19.0'
+
+    // Test Framework
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+
+    // Jackson for Json-Processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.0'
+
+    // Jackson from TestCaseFetcher Proj
+    //implementation 'org.apache.cxf:cxf-rt-rs-client:3.5.4'
+    //implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+test {
+    systemProperties System.getProperties()
+    systemProperty "features", System.getProperty("cucumber.features")
+    testLogging.showStandardStreams = true
+}
+
+application() {
+    mainClass = "tests.MyRunner"
+}
+
+task(task1, dependsOn: 'classes', type:JavaExec){
+    main = 'tests.MyRunner'
+    classpath = sourceSets.main.runtimeClasspath
+    systemProperty 'testconfigfile', 'testconfigTask1.yml'
+}
+
+configure(task1){
+    group = 'application'
+}

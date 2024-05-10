@@ -1,0 +1,15 @@
+
+application:
+  name: Opencart
+  url: http://opencart.abstracta.us/
+  user: deneme@deneme.com
+  password: deneme
+
+
+tests:
+  browser: chrome
+  dryrun: false
+  features: src/test/resources/features/MyFeature.feature
+  tags:
+
+
