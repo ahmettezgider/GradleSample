@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
         features = {"src\\test\\resources\\features\\feature.feature"},
         glue = {"stepdefs"},
         dryRun = false,
-        plugin = {
-                "pretty",
-                "json:cucumber/Cucumber.json"
+        plugin = {"pretty",
+                "json:target/cucumber/cucumber.json",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         }
 
 )
